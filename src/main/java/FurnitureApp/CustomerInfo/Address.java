@@ -1,4 +1,4 @@
-package customerInfo;
+package FurnitureApp.CustomerInfo;
 
 public class Address
 {

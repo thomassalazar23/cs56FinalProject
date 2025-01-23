@@ -1,4 +1,4 @@
-package furnitureInfo;
+package FurnitureApp.FurnitureInfo;
 
 public interface Furniture
 {

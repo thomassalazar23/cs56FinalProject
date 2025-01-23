@@ -4,6 +4,6 @@ module edu.smc.finalproject.finalproject {
 
     requires org.kordamp.bootstrapfx.core;
 
-    opens edu.smc.finalproject.finalproject to javafx.fxml;
-    exports edu.smc.finalproject.finalproject;
+    opens GUI to javafx.fxml;
+    exports GUI;
 }

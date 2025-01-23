@@ -65,7 +65,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                edu.smc.finalproject.finalproject/edu.smc.finalproject.finalproject.HelloApplication
+                                edu.smc.finalproject.finalproject/GUI.HelloApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

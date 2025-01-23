@@ -1,6 +1,6 @@
-package furnitureInfo;
+package FurnitureApp.FurnitureInfo;
 
-public class Chair implements Furniture
+public class Table implements Furniture
 {
     private String name;
     private int model;
