@@ -26,4 +26,7 @@ public class Customer
     {
         return address;
     }
+
+    //Need to add .equals and hashcode
+
 }
