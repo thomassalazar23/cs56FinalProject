@@ -5,6 +5,14 @@ public class Table implements Furniture
     private String name;
     private int model;
     private int price;
+    private final String type;
+
+    public Table(String name, int model, int price) {
+        this.name = name;
+        this.model = model;
+        this.price = price;
+        this.type = "Table";
+    }
 
     @Override
     public void setName(String name)
@@ -41,4 +49,10 @@ public class Table implements Furniture
     {
         return price;
     }
+
+    public String getType(){
+        return type;
+    }
+
+    //Need to add .equals and hashcode
 }
