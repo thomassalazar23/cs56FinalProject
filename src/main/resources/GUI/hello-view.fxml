@@ -1,16 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="GUI.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.HelloController">
+    <children>
+        <VBox spacing="10" alignment="CENTER" prefWidth="600">
+            <HBox spacing="5">
+                <Label text="Customer Name:"/>
+                <TextField fx:id="customerName"/>
+                <Button text="Add Customer" onAction="#addCustomer"/>
+            </HBox>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+            <TableView fx:id="purchaseTable">
+                <columns>
+                    <TableColumn fx:id="nameColumn" text="Name"/>
+                    <TableColumn fx:id="modelColumn" text="Model"/>
+                    <TableColumn fx:id="priceColumn" text="Price"/>
+                    <TableColumn fx:id="typeColumn" text="Type"/>
+                </columns>
+            </TableView>
+
+            <Label fx:id="totalSpentLabel" text="Total Spent: $0.00"/>
+            <Label fx:id="purchaseStatusLabel" text="No purchases yet for this customer"/>
+
+            <GridPane hgap="10" vgap="10"> //this shows everything on the bottm
+                <Label text="Furniture Name" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <TextField fx:id="furnitureNameField" promptText="Furniture Name" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <Label text="Model Number" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <TextField fx:id="modelNumberField" promptText="Model Number" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                <Label text="Price" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <TextField fx:id="priceField" promptText="Price" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                <Label text="Type (Chair/Sofa/Table)" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                <TextField fx:id="typeField" promptText="Type" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+                <Button text="Add Purchase" onAction="#addPurchase" GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.columnSpan="2"/>
+            </GridPane>
+
+        </VBox>
+    </children>
+</AnchorPane>
