@@ -12,6 +12,32 @@ public class FurnitureBusiness
 {
     private HashMap<Customer, List<Furniture>> customerLog = new HashMap<>();
 
+    public ArrayList<Customer> searchCustomers(String searchName)
+    {
+        ArrayList<Customer> foundCustomers = new ArrayList<>();
+
+        searchName = searchName.toLowerCase();
+        for (Customer c : customerLog.keySet())
+        {
+            if (searchName.equals(c.getName().toLowerCase()))
+            {
+                foundCustomers.add(c);
+            }
+        }
+
+        return foundCustomers;
+    }
+
+    public void addCustomer(Customer c)
+    {
+        if (c == null)
+        {
+            return;
+        } else
+        {
+            customerLog.put(c, new ArrayList<Furniture>());
+        }
+    }
 
     public void purchase(Customer c, Furniture ...f)
     {

@@ -27,13 +27,13 @@ public class Chair implements Furniture
     }
 
     @Override
-    public void setModelNr(int model)
+    public void setModel(int model)
     {
         this.model = model;
     }
 
     @Override
-    public int getModelNr()
+    public int getModel()
     {
         return model;
     }
@@ -54,5 +54,32 @@ public class Chair implements Furniture
         return type;
     }
 
-    //Need to add .equals and hashcode
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+        {
+            return true;
+        }
+
+        if (!(o instanceof Chair))
+        {
+            return false;
+        }
+
+        Chair other = (Chair) o;
+        return model == other.getModel() && price == other.getPrice() && name.equals(other.getName());
+
+    }
+
+    @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + model;
+        result = prime * result + price;
+        result = prime * result + (name == null ? 0 : name.hashCode());
+        return result;
+    }
 }

@@ -7,24 +7,41 @@ import FurnitureApp.FurnitureInfo.Sofa;
 import FurnitureApp.FurnitureInfo.Table;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import FurnitureApp.CustomerInfo.Customer;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class HelloController {
-    @FXML private TextField customerName, furnitureNameField, modelNumberField, priceField, typeField;
+
+
+    @FXML private TextField searchCustomer, furnitureNameField, modelNumberField, priceField, typeField;
     @FXML private TableView<Furniture> purchaseTable;
     @FXML private TableColumn<Furniture, String> nameColumn, typeColumn;
     @FXML private TableColumn<Furniture, Integer> priceColumn, modelColumn;
     @FXML private Label totalSpentLabel, purchaseStatusLabel;
+    @FXML Label customerNameLabel;
 
     private Furniture selectedFurniture;
     private FurnitureBusiness furnitureBusiness = new FurnitureBusiness();
     private List<Customer> customers = new ArrayList<>();
     private Customer currentCustomer;
 
+    //sets current customer
+    public void setCurrentCustomer(Customer inCustomer)
+    {
+        this.currentCustomer = inCustomer;
+    }
+
+    //initializes the table on screen
     @FXML
     public void initialize() {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -43,30 +60,37 @@ public class HelloController {
         });
     }
 
+    //searches for customer in furniture business object
+    //will update the UI to reflect selected/created customer
     @FXML
-    protected void addCustomer() {
-        /*
-        I'm not really sure if the Customer is added theres exceptions when adding one so take a look at it
-        Not sure if Customers are supposed to be in an arraylist or just there
+    protected void searchCustomer() throws IOException
+    {
+        //fetch the inputted name from customer text field
+        String name = searchCustomer.getText();
 
-         */
-        String name = customerName.getText();
-        if (name.isEmpty()) {
-            showAlert("Customer name cannot be empty.");
+        //show error if textfield was left empty
+        if(name.isEmpty())
+        {
+            showAlert("Please enter a customer name.");
             return;
         }
-        currentCustomer = new Customer();
-        currentCustomer.setName(name); //sets name
-        customers.add(currentCustomer); //the arraylist
-        furnitureBusiness.getPurchases(currentCustomer); //grabs the purchase
 
-        selectedFurniture = null;
-        purchaseStatusLabel.setText("No purchases yet for this customer");
-        updateUI();
+        //search for all customers with name
+        ArrayList<Customer> foundCustomers = furnitureBusiness.searchCustomers(name);
+
+        //if no customers were found
+        if(foundCustomers.isEmpty())
+        {
+            //asks user to create customer or not
+           showCustomerNotFound();
+        }
     }
 
+    //adds purchase to customer's purchase history
     @FXML
     protected void addPurchase() {
+
+        //if there is no current customer, show error message
         if (currentCustomer == null) {
             showAlert("Please add or select a customer first.");
             return;
@@ -93,29 +117,53 @@ public class HelloController {
             return;
         }
 
+        //will hold new furniture based on entered type
         Furniture furnitureItem;
-        switch (type.toLowerCase()) { //makes a new object type I added a method in these classes for easier construction
+
+        //makes a new object type I added a method in these classes for easier construction
+        switch (type.toLowerCase()) {
+            //create new chair
             case "chair": furnitureItem = new Chair(furnitureName, model, price); break;
+
+            //create new sofa object
             case "sofa": furnitureItem = new Sofa(furnitureName, model, price); break;
+
+            //create new table object
             case "table": furnitureItem = new Table(furnitureName, model, price); break;
+
+            //if user inputs invalid type, show error message
             default:
                 showAlert("Invalid furniture type. Use 'Chair', 'Sofa', or 'Table'.");
                 return;
         }
 
+        //call the purchase function with current customer and created furniture
         furnitureBusiness.purchase(currentCustomer, furnitureItem);
         updateUI();
     }
 
-    //is supposed to update the money spent for each Customer but something goes wrong I think the customer isnt added
+    //updates UI to reflect the current customer and their purchase history
     private void updateUI() {
-        if (currentCustomer == null) return;
 
+        //if customer is null, make no changes
+        if (currentCustomer == null)
+        {
+            return;
+        }
+
+        //set text above table to current customers name
+        customerNameLabel.setText(currentCustomer.getName());
+
+        //retrieve the customers purchase history
         List<Furniture> purchases = furnitureBusiness.getPurchases(currentCustomer);
+
+        //update table
         purchaseTable.setItems(FXCollections.observableArrayList(purchases));
 
+        //update total money spent by customer
         totalSpentLabel.setText("Total Spent: $" + furnitureBusiness.moneySpent(currentCustomer));
     }
+
     //shows an error pop up of whatever message in the method
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -123,4 +171,53 @@ public class HelloController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    //will ask the user if they want to create a new customer
+    private void showCustomerNotFound() throws IOException
+    {
+        //create new alert with yes or no buttons
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"No Customers found, create a new one?",ButtonType.YES,ButtonType.NO);
+        Optional<ButtonType> result = alert.showAndWait();
+
+        //if user clicks yes
+        if (result.isPresent() && result.get() == ButtonType.YES)
+        {
+            //create a new customer using the customer creation scene
+            showCustomerCreationWindow();
+
+            //update the UI to reflect the new customer added
+            furnitureBusiness.addCustomer(currentCustomer);
+            updateUI();
+        }
+
+        //otherwise, just return
+        else
+        {
+            return;
+        }
+    }
+
+    //will show the customer creation window where user will create new customer
+    private void showCustomerCreationWindow() throws IOException
+    {
+        //load fxml file
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("customerCreate.fxml"));
+        Stage modalStage = new Stage();
+
+        //retrieve the controller for customer creation window
+        Parent root = fxmlLoader.load();
+        CreateCustomerController customerCreateController = fxmlLoader.getController();
+
+        //pass this controller to the customer creation controller
+        //this will allow the creation controller to pass the customer
+        //back to main controller
+        customerCreateController.setMainController(this);
+
+        modalStage.setScene(new Scene(root));
+        modalStage.setTitle("Create Customer");
+        modalStage.showAndWait();
+
+        return;
+    }
+
 }

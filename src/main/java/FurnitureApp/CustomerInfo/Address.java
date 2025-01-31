@@ -1,5 +1,7 @@
 package FurnitureApp.CustomerInfo;
 
+import java.util.Objects;
+
 public class Address
 {
     private int houseNumber;
@@ -39,6 +41,39 @@ public class Address
         this.zipCode = zipCode;
     }
 
+    @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + houseNumber;
+        //if city or street is null, use the number 0, otherwise use hashcode on string
+        result = prime * result + ((city == null) ? 0 : city.hashCode());
+        result = prime * result + ((street == null) ? 0 : street.hashCode());
+        result = prime * result + zipCode;
 
+        return result;
+    }
 
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+        {
+            return true;
+        }
+
+        if (!(o instanceof Address))
+        {
+            return false;
+        }
+
+        Address other = (Address) o;
+
+        //check if variable in each class is equal to each other
+        return Objects.equals(this.houseNumber,other.houseNumber)
+                && Objects.equals(this.city,other.city)
+                && Objects.equals(this.street,other.street)
+                && Objects.equals(this.zipCode,other.zipCode);
+    }
 }

@@ -18,12 +18,17 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>22.0.2</version>
+            <version>22.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>22.0.2</version>
+            <version>22.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.kordamp.bootstrapfx</groupId>
+            <artifactId>bootstrapfx-core</artifactId>
+            <version>0.4.0</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -38,6 +43,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -47,8 +53,6 @@
                 <configuration>
                     <source>22</source>
                     <target>22</target>
-                    <compilerArgument>--module-path "C:/path/to/javafx-sdk-22.0.2/lib;C:/path/to/bootstrapfx-core/lib"</compilerArgument>
-                    <compilerArgument>--add-modules javafx.controls,javafx.fxml,org.kordamp.bootstrapfx.core</compilerArgument>
                 </configuration>
             </plugin>
             <plugin>
@@ -57,6 +61,7 @@
                 <version>0.0.8</version>
                 <executions>
                     <execution>
+                        <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
@@ -74,4 +79,4 @@
             </plugin>
         </plugins>
     </build>
-</project>
+</project>z

@@ -3,13 +3,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.HelloController">
     <children>
         <VBox spacing="10" alignment="CENTER" prefWidth="600">
             <HBox spacing="5">
+                <Label text="Search Customer:"/>
+                <TextField fx:id="searchCustomer"/>
+                <Button text="Add Customer" onAction="#searchCustomer"/>
+            </HBox>
+
+            <HBox spacing="5">
                 <Label text="Customer Name:"/>
-                <TextField fx:id="customerName"/>
-                <Button text="Add Customer" onAction="#addCustomer"/>
+                <Label fx:id="customerNameLabel" text="None"/>
             </HBox>
 
             <TableView fx:id="purchaseTable">
@@ -24,7 +30,7 @@
             <Label fx:id="totalSpentLabel" text="Total Spent: $0.00"/>
             <Label fx:id="purchaseStatusLabel" text="No purchases yet for this customer"/>
 
-            <GridPane hgap="10" vgap="10"> //this shows everything on the bottm
+            <GridPane hgap="10" vgap="10">
                 <Label text="Furniture Name" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
                 <TextField fx:id="furnitureNameField" promptText="Furniture Name" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
