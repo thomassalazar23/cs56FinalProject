@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="GUI.CreateCustomerController">
+    <GridPane alignment="CENTER">
+        <padding>
+            <Insets left="20" top="20" right="20" bottom="20"> </Insets>
+        </padding>
+
+        <Label text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <TextField fx:id="customerNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+        <Label text="City:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <TextField fx:id="cityTextField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+        <Label text="Zip Code:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <TextField fx:id="zipCodeTextField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+        <Label text="Street:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <TextField fx:id="streetTextField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+        <Label text="House Number:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <TextField fx:id="houseNumberTextField" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+        <Button fx:id="createButton" text="Create Customer" onAction="#createCustomer" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+    </GridPane>
+
+</AnchorPane>

@@ -201,7 +201,7 @@ public class HelloController {
     private void showCustomerCreationWindow() throws IOException
     {
         //load fxml file
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("customerCreate.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateCustomerScreen.fxml"));
         Stage modalStage = new Stage();
 
         //retrieve the controller for customer creation window
