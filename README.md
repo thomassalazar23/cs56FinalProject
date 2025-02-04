@@ -1,5 +1,5 @@
 1. What are the names of group members?
-Preciouz Rocha
+Preciouz Rocha, Thomas Salazar, Kai Shimoda, Emily Monterroza, and Jesse Wang
 2. What Java version are you using?
 Java 22
 3. What IDE are you using?
