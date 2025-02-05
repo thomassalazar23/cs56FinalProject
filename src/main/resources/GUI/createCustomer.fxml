@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox spacing="10" alignment="CENTER">
+            <Label text="Select or Create Customer"/>
+            <ListView fx:id="customerListView" prefHeight="150" prefWidth="300"/>
+            <HBox spacing="5">
+                <Label text="New Customer Name:"/>
+                <TextField fx:id="newCustomerNameField" promptText="Enter new customer name"/>
+            </HBox>
+            <HBox spacing="10">
+                <Button text="Select Customer" onAction="#handleSelectCustomer"/>
+                <Button text="Create New Customer" onAction="#handleSaveNewCustomer"/>
+                <Button text="Cancel" onAction="#handleCancel"/>
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>

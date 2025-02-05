@@ -3,14 +3,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.HelloController">
     <children>
         <VBox spacing="10" alignment="CENTER" prefWidth="600">
             <HBox spacing="5">
-                <Label text="Search Customer:"/>
-                <TextField fx:id="searchCustomer"/>
-                <Button text="Add Customer" onAction="#searchCustomer"/>
+                <Label text="Select Customer"/>
+                <Button text="Choose Customer" onAction="#chooseCustomer"/>
             </HBox>
 
             <HBox spacing="5">
@@ -45,7 +43,6 @@
 
                 <Button text="Add Purchase" onAction="#addPurchase" GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.columnSpan="2"/>
             </GridPane>
-
         </VBox>
     </children>
 </AnchorPane>

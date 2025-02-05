@@ -92,16 +92,19 @@ public class FurnitureBusiness
 
     public int moneySpent(Customer c)
     {
-
         int totalSpent = 0;
+        List<Furniture> purchases = customerLog.get(c);
 
-        //loop through customer purchase history
-        for (Furniture furniture : customerLog.get(c))
-        {
-            //add each piece's price to the total spent
-            totalSpent += furniture.getPrice();
+        // If the customer has no purchase history (or isn't in the map), return 0.
+        if (purchases == null) {
+            return 0;
         }
 
+        // Loop through the purchase history and sum the prices.
+        for (Furniture furniture : purchases)
+        {
+            totalSpent += furniture.getPrice();
+        }
         return totalSpent;
     }
 
